@@ -1522,9 +1522,14 @@ module.exports = grammar({
     boolean_literal: $ => choice('true', 'false'),
 
     comment: $ => choice(
-      $.line_comment,
-      $.block_comment
+      $.block_comment,
+      $.line_comment
     ),
+
+    block_comment: $ => token(choice(
+      seq('//!', /.*/),
+      seq('///', /.*/)
+    )),
 
     line_comment: $ => token(seq(
       '//', /.*/
